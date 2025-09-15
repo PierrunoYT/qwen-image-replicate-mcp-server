@@ -1,0 +1,131 @@
+{
+  "name": "qwen-image-fal-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for generating images using Qwen Image model via fal.ai",
+  "private": true,
+  "type": "module",
+  "bin": "./build/index.js",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "jest --testPathPattern=tests/unit",
+    "test:integration": "jest --testPathPattern=tests/integration",
+    "test:e2e": "jest --testPathPattern=tests/e2e",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:server": "node test-server.js",
+    "test:mock": "node tests/mock-server.js",
+    "dev": "npm run build && npm run test:server",
+    "dev:watch": "concurrently \"npm run watch\" \"nodemon --watch build test-server.js\"",
+    "lint": "eslint src/**/*.ts tests/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts tests/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts tests/**/*.ts",
+    "get-path": "node get-path.js",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "docker:build": "docker build -t qwen-image-fal-mcp .",
+    "docker:run": "docker run -e FAL_KEY=$FAL_KEY qwen-image-fal-mcp",
+    "health-check": "node tests/health-check.cjs",
+    "benchmark": "node tests/benchmark.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "image-generation",
+    "qwen-image",
+    "qwen",
+    "fal-ai",
+    "fal",
+    "ai",
+    "text-to-image",
+    "image-generation"
+  ],
+  "author": "Qwen Image MCP Server",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PierrunoYT/qwen-image-fal-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PierrunoYT/qwen-image-fal-mcp-server/issues"
+  },
+  "homepage": "https://github.com/PierrunoYT/qwen-image-fal-mcp-server#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "0.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.11.0",
+    "rate-limiter-flexible": "^2.4.2",
+    "replicate": "^1.1.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.8",
+    "@types/node": "^20.11.24",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "nock": "^13.4.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.1.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/tests"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.ts",
+      "**/?(*.)+(spec|test).ts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.d.ts",
+      "!src/types/**/*.ts"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.ts"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-explicit-any": "warn"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 100,
+    "tabWidth": 2
+  }
+}

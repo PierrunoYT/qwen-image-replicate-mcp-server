@@ -1,0 +1,257 @@
+{
+  "_comment": "Comprehensive MCP Configuration for Qwen Image fal.ai Server",
+  "_version": "1.0.0",
+  "_instructions": {
+    "setup": "Replace the path below with your actual absolute path to qwen-image-fal-mcp-server/build/index.js",
+    "Windows": "Use forward slashes like: C:/Users/YourName/Projects/qwen-image-fal-mcp-server/build/index.js",
+    "macOS_Linux": "Use: /Users/YourName/Projects/qwen-image-fal-mcp-server/build/index.js",
+    "find_path": "Right-click build/index.js in VS Code and select 'Copy Path'",
+    "get_path_script": "Run 'npm run get-path' to get the exact path automatically"
+  },
+  
+  "mcpServers": {
+    "qwen-image": {
+      "command": "node",
+      "args": ["/absolute/path/to/qwen-image-fal-mcp-server/build/index.js"],
+      "env": {
+        "FAL_KEY": "your_fal_key_here",
+        "NODE_ENV": "production",
+        "LOG_LEVEL": "info",
+        "MAX_CONCURRENT_REQUESTS": "3",
+        "REQUEST_TIMEOUT": "300000",
+        "IMAGE_STORAGE_PATH": "./images",
+        "ENABLE_CACHING": "true",
+        "CACHE_TTL": "3600"
+      },
+      "disabled": false,
+      "alwaysAllow": [
+        "generate_image"
+      ],
+      "timeout": 300000,
+      "restart": true
+    }
+  },
+  
+  "_alternative_configurations": {
+    "_comment": "Alternative configurations for different deployment scenarios",
+    
+    "development": {
+      "qwen-image-dev": {
+        "command": "node",
+        "args": ["/absolute/path/to/qwen-image-fal-mcp-server/build/index.js"],
+        "env": {
+          "FAL_KEY": "your_fal_key_here",
+          "NODE_ENV": "development",
+          "LOG_LEVEL": "debug",
+          "ENABLE_DEBUG_LOGGING": "true"
+        },
+        "disabled": false,
+        "alwaysAllow": []
+      }
+    },
+    
+    "npx_deployment": {
+      "_comment": "Use npx for automatic updates and universal deployment",
+      "qwen-image-npx": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "https://github.com/PierrunoYT/qwen-image-fal-mcp-server.git"
+        ],
+        "env": {
+          "FAL_KEY": "your_fal_key_here",
+          "NODE_ENV": "production"
+        },
+        "disabled": false,
+        "alwaysAllow": []
+      }
+    },
+    
+    "docker_deployment": {
+      "_comment": "Docker-based deployment configuration",
+      "qwen-image-docker": {
+        "command": "docker",
+        "args": [
+          "run",
+          "--rm",
+          "-i",
+          "-e", "FAL_KEY=your_fal_key_here",
+          "-e", "NODE_ENV=production",
+          "-v", "./data:/app/data",
+          "-v", "./logs:/app/logs",
+          "-v", "./images:/app/images",
+          "qwen-image-fal-mcp:latest"
+        ],
+        "disabled": true,
+        "alwaysAllow": []
+      }
+    },
+    
+    "high_performance": {
+      "_comment": "High-performance configuration for heavy usage",
+      "qwen-image-hp": {
+        "command": "node",
+        "args": [
+          "--max-old-space-size=4096",
+          "/absolute/path/to/qwen-image-fal-mcp-server/build/index.js"
+        ],
+        "env": {
+          "FAL_KEY": "your_fal_key_here",
+          "NODE_ENV": "production",
+          "LOG_LEVEL": "warn",
+          "MAX_CONCURRENT_REQUESTS": "5",
+          "ENABLE_CACHING": "true",
+          "CACHE_TTL": "7200",
+          "MEMORY_LIMIT": "4096"
+        },
+        "disabled": false,
+        "alwaysAllow": [
+          "generate_image"
+        ],
+        "timeout": 600000
+      }
+    }
+  },
+  
+  "_environment_variables": {
+    "_comment": "Complete list of supported environment variables",
+    "required": {
+      "FAL_KEY": {
+        "description": "Your fal.ai API key",
+        "example": "your_fal_key_here",
+        "required": true,
+        "get_from": "https://fal.ai/dashboard/keys"
+      }
+    },
+    "optional": {
+      "NODE_ENV": {
+        "description": "Environment mode",
+        "options": ["development", "production", "test"],
+        "default": "production"
+      },
+      "LOG_LEVEL": {
+        "description": "Logging level",
+        "options": ["error", "warn", "info", "debug"],
+        "default": "info"
+      },
+      "MAX_CONCURRENT_REQUESTS": {
+        "description": "Maximum concurrent image generation requests",
+        "type": "number",
+        "default": 3,
+        "range": "1-10"
+      },
+      "REQUEST_TIMEOUT": {
+        "description": "Request timeout in milliseconds",
+        "type": "number",
+        "default": 300000,
+        "range": "30000-600000"
+      },
+      "IMAGE_STORAGE_PATH": {
+        "description": "Local path for storing generated images",
+        "type": "string",
+        "default": "./images"
+      },
+      "ENABLE_CACHING": {
+        "description": "Enable response caching",
+        "type": "boolean",
+        "default": "true"
+      },
+      "CACHE_TTL": {
+        "description": "Cache time-to-live in seconds",
+        "type": "number",
+        "default": 3600
+      },
+      "ENABLE_DEBUG_LOGGING": {
+        "description": "Enable detailed debug logging",
+        "type": "boolean",
+        "default": "false"
+      },
+      "MEMORY_LIMIT": {
+        "description": "Node.js memory limit in MB",
+        "type": "number",
+        "default": 2048
+      }
+    }
+  },
+  
+  "_authentication_examples": {
+    "_comment": "Examples for different authentication methods",
+    "api_key_validation": {
+      "description": "fal.ai API keys are typically alphanumeric strings",
+      "get_key": "Visit https://fal.ai/dashboard/keys to generate your API key"
+    },
+    "environment_file": {
+      "description": "Create a .env file in your project root",
+      "example": "FAL_KEY=your_fal_key_here"
+    }
+  },
+  
+  "_deployment_options": {
+    "_comment": "Different ways to deploy the MCP server",
+    "local_installation": {
+      "steps": [
+        "git clone https://github.com/PierrunoYT/qwen-image-fal-mcp-server.git",
+        "cd qwen-image-fal-mcp-server",
+        "npm install",
+        "npm run build",
+        "npm run get-path  # Get absolute path for configuration"
+      ]
+    },
+    "npx_deployment": {
+      "advantages": [
+        "No local installation required",
+        "Always uses latest version",
+        "Works on any machine with Node.js",
+        "Automatic updates"
+      ],
+      "command": "npx -y https://github.com/PierrunoYT/qwen-image-fal-mcp-server.git"
+    },
+    "docker_deployment": {
+      "steps": [
+        "docker build -t qwen-image-fal-mcp .",
+        "docker run -e FAL_KEY=your_key qwen-image-fal-mcp"
+      ]
+    }
+  },
+  
+  "_troubleshooting": {
+    "common_issues": {
+      "server_not_found": {
+        "error": "Server not showing up in MCP client",
+        "solutions": [
+          "Verify the absolute path is correct",
+          "Ensure the build directory exists (run npm run build)",
+          "Check file permissions",
+          "Restart your MCP client after configuration changes"
+        ]
+      },
+      "api_token_error": {
+        "error": "FAL_KEY environment variable is not set",
+        "solutions": [
+          "Get your API key from https://fal.ai/dashboard/keys",
+          "Add the key to your MCP configuration",
+          "Verify the key format is correct",
+          "Check key permissions and credits"
+        ]
+      },
+      "generation_timeout": {
+        "error": "Image generation times out",
+        "solutions": [
+          "Increase timeout value in configuration",
+          "Check your internet connection",
+          "Verify fal.ai service status",
+          "Try with a simpler prompt or fewer inference steps"
+        ]
+      },
+      "invalid_parameters": {
+        "error": "Parameter validation errors",
+        "solutions": [
+          "Check image_size is valid (square_hd, landscape_4_3, etc.)",
+          "Ensure num_inference_steps is between 2-250",
+          "Verify guidance_scale is between 0-20",
+          "Check num_images is between 1-4"
+        ]
+      }
+    }
+  }
+}

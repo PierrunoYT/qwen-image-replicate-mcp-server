@@ -1,0 +1,208 @@
+seedinteger
+
+Random seed. Set for reproducible generation
+imageuri
+
+Input image for img2img pipeline
+promptstring
+
+Prompt for generated image
+go_fastboolean
+
+Run faster predictions with additional optimizations.
+
+Default
+    true
+
+guidancenumber
+
+Guidance for generated image. Lower values can give more realistic images. Good values to try are 2, 2.5, 3 and 3.5
+
+Default
+    3
+Maximum
+    10
+
+strengthnumber
+
+Strength for img2img pipeline
+
+Default
+    0.9
+Maximum
+    1
+
+image_sizestring
+
+Image size for the generated image
+
+Default
+    "optimize_for_quality"
+
+lora_scalenumber
+
+Determines how strongly the main LoRA should be applied.
+
+Default
+    1
+
+aspect_ratiostring
+
+Aspect ratio for the generated image
+
+Default
+    "16:9"
+
+lora_weightsstring
+
+Load LoRA weights. Only works with text to image pipeline. Supports arbitrary .safetensors URLs, tar files, and zip files from the Internet (for example, 'https://huggingface.co/Viktor1717/scandinavian-interior-style1/resolve/main/my_first_flux_lora_v1.safetensors', 'https://example.com/lora_weights.tar.gz', or 'https://example.com/lora_weights.zip')
+output_formatstring
+
+Format of the output images
+
+Default
+    "webp"
+
+enhance_promptboolean
+
+Enhance the prompt with positive magic.
+output_qualityinteger
+
+Quality when saving the output images, from 0 to 100. 100 is best quality, 0 is lowest quality. Not relevant for .png outputs
+
+Default
+    80
+Maximum
+    100
+
+negative_promptstring
+
+Negative prompt for generated image
+
+Default
+    " "
+
+num_inference_stepsinteger
+
+Number of denoising steps. Recommended range is 28-50, and lower number of steps produce lower quality outputs, faster.
+
+Default
+    30
+Minimum
+    1
+Maximum
+    50
+
+disable_safety_checkerboolean
+
+Disable safety checker for generated images.
+Output schema
+
+Type
+    uri[]
+
+
+
+
+seedinteger
+
+Random seed. Set for reproducible generation
+imageuri
+
+Input image for img2img pipeline
+promptstring
+
+Prompt for generated image
+go_fastboolean
+
+Run faster predictions with additional optimizations.
+
+Default
+    true
+
+guidancenumber
+
+Guidance for generated image. Lower values can give more realistic images. Good values to try are 2, 2.5, 3 and 3.5
+
+Default
+    3
+Maximum
+    10
+
+strengthnumber
+
+Strength for img2img pipeline
+
+Default
+    0.9
+Maximum
+    1
+
+image_sizestring
+
+Image size for the generated image
+
+Default
+    "optimize_for_quality"
+
+lora_scalenumber
+
+Determines how strongly the main LoRA should be applied.
+
+Default
+    1
+
+aspect_ratiostring
+
+Aspect ratio for the generated image
+
+Default
+    "16:9"
+
+lora_weightsstring
+
+Load LoRA weights. Only works with text to image pipeline. Supports arbitrary .safetensors URLs, tar files, and zip files from the Internet (for example, 'https://huggingface.co/Viktor1717/scandinavian-interior-style1/resolve/main/my_first_flux_lora_v1.safetensors', 'https://example.com/lora_weights.tar.gz', or 'https://example.com/lora_weights.zip')
+output_formatstring
+
+Format of the output images
+
+Default
+    "webp"
+
+enhance_promptboolean
+
+Enhance the prompt with positive magic.
+output_qualityinteger
+
+Quality when saving the output images, from 0 to 100. 100 is best quality, 0 is lowest quality. Not relevant for .png outputs
+
+Default
+    80
+Maximum
+    100
+
+negative_promptstring
+
+Negative prompt for generated image
+
+Default
+    " "
+
+num_inference_stepsinteger
+
+Number of denoising steps. Recommended range is 28-50, and lower number of steps produce lower quality outputs, faster.
+
+Default
+    30
+Minimum
+    1
+Maximum
+    50
+
+disable_safety_checkerboolean
+
+Disable safety checker for generated images.
+Output schema
+
+Type
+    uri[]
