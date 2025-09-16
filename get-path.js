@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Comprehensive Path Helper for SeedDream 4.0 Replicate MCP Server
+ * Comprehensive Path Helper for Qwen Image Replicate MCP Server
  *
  * Features:
  * - Get absolute path for MCP configuration
@@ -55,7 +55,7 @@ class PathHelper {
   }
 
   async run() {
-    logSection('SeedDream 4.0 Replicate MCP Server - Path Helper');
+    logSection('Qwen Image Replicate MCP Server - Path Helper');
     
     this.checkSystemRequirements();
     this.validateEnvironment();
@@ -124,7 +124,7 @@ class PathHelper {
       if (replicateToken.startsWith('r8_')) {
         log('✅', 'REPLICATE_API_TOKEN is set and valid format', 'green');
       } else {
-        log('⚠️', 'REPLICATE_API_TOKEN format may be invalid', 'yellow');
+        log('⚠️', 'REPLICATE_API_TOKEN format may be invalid (should start with r8_)', 'yellow');
       }
     } else {
       log('⚠️', 'REPLICATE_API_TOKEN not set', 'yellow');
@@ -156,7 +156,7 @@ class PathHelper {
     // Basic configuration
     const basicConfig = {
       mcpServers: {
-        seedream: {
+        "qwen-image": {
           command: "node",
           args: [this.buildPath],
           env: {
@@ -171,7 +171,7 @@ class PathHelper {
     // Development configuration
     const devConfig = {
       mcpServers: {
-        seedream: {
+        "qwen-image-dev": {
           command: "node",
           args: [this.buildPath],
           env: {
@@ -188,14 +188,15 @@ class PathHelper {
     // Production configuration
     const prodConfig = {
       mcpServers: {
-        seedream: {
+        "qwen-image-prod": {
           command: "node",
           args: [this.buildPath],
           env: {
             REPLICATE_API_TOKEN: "r8_your_replicate_token_here",
             NODE_ENV: "production",
             LOG_LEVEL: "info",
-            MAX_CONCURRENT_REQUESTS: "3"
+            MAX_CONCURRENT_REQUESTS: "3",
+            REQUEST_TIMEOUT: "300000"
           },
           disabled: false,
           alwaysAllow: ["generate_image"],
@@ -236,12 +237,12 @@ class PathHelper {
     log('  ', 'Cons: Manual updates, path-dependent', 'yellow');
     
     log('\n📦', 'NPX Deployment (Recommended):', 'bright');
-    log('  ', 'Command: npx -y https://github.com/PierrunoYT/seedream-v4-replicate-mcp-server.git', 'white');
+    log('  ', 'Command: npx -y https://github.com/PierrunoYT/qwen-image-fal-mcp-server.git', 'white');
     log('  ', 'Pros: Auto-updates, universal, no local install', 'green');
     log('  ', 'Cons: Requires internet, less control', 'yellow');
     
     log('\n🐳', 'Docker Deployment:', 'bright');
-    log('  ', 'Command: docker run -e REPLICATE_API_TOKEN=token seedream-replicate-mcp', 'white');
+    log('  ', 'Command: docker run -e REPLICATE_API_TOKEN=token qwen-image-replicate-mcp', 'white');
     log('  ', 'Pros: Isolated, consistent environment', 'green');
     log('  ', 'Cons: Docker overhead, more complex setup', 'yellow');
   }
@@ -270,8 +271,8 @@ class PathHelper {
     log('  ', '• Verify Replicate service status', 'white');
     
     log('\n🆘', 'Getting Help:', 'bright');
-    log('  ', '• GitHub Issues: https://github.com/PierrunoYT/seedream-v4-replicate-mcp-server/issues', 'white');
-    log('  ', '• Run health check: npm run test:server --health-check', 'white');
+    log('  ', '• GitHub Issues: https://github.com/PierrunoYT/qwen-image-fal-mcp-server/issues', 'white');
+    log('  ', '• Run health check: npm run health-check', 'white');
     log('  ', '• Check logs in logs/ directory', 'white');
   }
 }
@@ -281,7 +282,7 @@ const args = process.argv.slice(2);
 
 if (args.includes('--help') || args.includes('-h')) {
   console.log(`
-${colorize('SeedDream 4.0 Replicate MCP Server - Path Helper', 'bright')}
+${colorize('Qwen Image Replicate MCP Server - Path Helper', 'bright')}
 
 Usage:
   node get-path.js [options]
@@ -308,7 +309,7 @@ if (args.includes('--json')) {
   if (existsSync(helper.buildPath)) {
     const config = {
       mcpServers: {
-        seedream: {
+        "qwen-image": {
           command: "node",
           args: [helper.buildPath],
           env: {
